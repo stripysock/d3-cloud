@@ -23,6 +23,7 @@ module.exports = function() {
       event = dispatch("word", "end"),
       timer = null,
       random = Math.random,
+      overflow = false,
       cloud = {},
       canvas = cloudCanvas;
 
@@ -120,8 +121,8 @@ module.exports = function() {
       tag.x = startX + dx;
       tag.y = startY + dy;
 
-      if (tag.x + tag.x0 < 0 || tag.y + tag.y0 < 0 ||
-          tag.x + tag.x1 > size[0] || tag.y + tag.y1 > size[1]) continue;
+      if (!overflow && (tag.x + tag.x0 < 0 || tag.y + tag.y0 < 0 ||
+          tag.x + tag.x1 > size[0] || tag.y + tag.y1 > size[1])) continue;
       // TODO only check for collisions within current bounds.
       if (!bounds || !cloudCollide(tag, board, size[0])) {
         if (!bounds || collideRects(tag, bounds)) {
@@ -195,6 +196,12 @@ module.exports = function() {
 
   cloud.random = function(_) {
     return arguments.length ? (random = _, cloud) : random;
+  };
+
+  cloud.overflow = function(x) {
+    if (!arguments.length) return overflow;
+      overflow = x;
+    return cloud;
   };
 
   cloud.on = function() {

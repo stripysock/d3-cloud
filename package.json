@@ -17,7 +17,7 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "http://github.com/jasondavies/d3-cloud.git"
+    "url": "http://github.com/stripysock/d3-cloud.git"
   },
   "main": "index.js",
   "scripts": {
